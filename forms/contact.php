@@ -24,16 +24,29 @@
   $contact->subject = $_POST['subject'];
 
   // Uncomment below code if you want to use SMTP to send emails. You need to enter your correct SMTP credentials
-  /*
+/*  
   $contact->smtp = array(
-    'host' => 'localhost',
+    'host' => 'localhost:',
     'username' => 'root',
     'password' => '',
-    'port' => '3306'
+    'port' => '3306',
   );
 */
+$server = "localhost";
+$username = "root";
+$dbname = "testdb";
+
+$connect = mysqli_connect($server,$username,$password,$dbname);
+
+if ($connect) {
+  echo "Connected!";
+} else{
+  echo "Error, Can't connect to Database!";
+}
+
   $contact->add_message( $_POST['name'], 'From');
   $contact->add_message( $_POST['email'], 'Email');
+  $contact->add_message( $_POST['subject'], 'Subject');
   $contact->add_message( $_POST['message'], 'Message', 10);
 
   echo $contact->send();
